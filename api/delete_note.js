@@ -7,7 +7,7 @@ AWS.config.update({ region: 'us-west-1'})
 
 const util = require('./utils')
 
-const dynamodb = new AWS.Dynamodb.DocumentClient()
+const dynamodb = new AWS.DynamoDB.DocumentClient()
 const tableName = process.env.NOTES_TABLE;
 
 exports.handler = async event => {

@@ -5,9 +5,11 @@
 const AWS = require('aws-sdk')
 AWS.config.update({ region: 'us-west-1'})
 
+const moment = require('moment')
+
 const util = require('./utils')
 
-const dynamodb = new AWS.Dynamodb.DocumentClient()
+const dynamodb = new AWS.DynamoDB.DocumentClient()
 const tableName = process.env.NOTES_TABLE;
 
 exports.handler = async event => {
@@ -32,7 +34,7 @@ exports.handler = async event => {
         return {
             statusCode: 200,
             headers: util.getResponseHeaders(),
-            body: Json.stringify(item)
+            body: JSON.stringify(item),
         }
     } catch (err) {
         console.log("Error", err)

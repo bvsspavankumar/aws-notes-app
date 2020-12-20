@@ -5,9 +5,11 @@
 const AWS = require('aws-sdk')
 AWS.config.update({ region: 'us-west-1'})
 
+const _ = require('underscore')
+
 const util = require('./utils')
 
-const dynamodb = new AWS.Dynamodb.DocumentClient()
+const dynamodb = new AWS.DynamoDB.DocumentClient()
 const tableName = process.env.NOTES_TABLE;
 
 exports.handler = async event => {
@@ -17,19 +19,22 @@ exports.handler = async event => {
         let params = {
             TableName: tableName,
             IndexName: 'note_id-index',
-            KeyConditionExpression: 'note_id = :note_id',
+            KeyConditionExpression: '#n = :n',
+            ExpressionAttributeNames: {
+                "#n": 'note_id'
+            },
             ExpressionAttributeValues: {
-                ":note_id": note_id
+                ":n": note_id
             },
             Limit: 1
         }
 
         let data = await dynamodb.query(params).promise()
-        if(!_.isEmpty(data.items)) {
+        if(!_.isEmpty(data.Items)) {
             return {
                 statusCode: 200,
                 headers: util.getResponseHeaders(),
-                body: JSON.stringify(data.items[0])
+                body: JSON.stringify(data.Items[0])
             }
         } else {
             return {

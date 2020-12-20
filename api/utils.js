@@ -15,4 +15,5 @@ const getUserName = (headers) => {
 module.exports = {
     getResponseHeaders,
     getUserId,
+    getUserName,
 }

@@ -55,7 +55,7 @@ provider:
 
 functions:
   add-note:
-    handler: api/add-note.handler
+    handler: api/add_note.handler
     description: POST /note
     events:
       - http:
@@ -66,7 +66,7 @@ functions:
             header: ${self:custom.allowedHeaders}
 
   update-note:
-    handler: api/update-note.handler
+    handler: api/update_note.handler
     description: PATCH /note
     events:
       - http:
@@ -76,7 +76,7 @@ functions:
             origin: '*'
             header: ${self:custom.allowedHeaders}
   get-notes:
-    handler: api/get-notes.handler
+    handler: api/get_notes.handler
     description: GET /notes
     events:
       - http:
@@ -86,7 +86,7 @@ functions:
             origin: '*'
             header: ${self:custom.allowedHeaders}
   get-note:
-    handler: api/get-note.handler
+    handler: api/get_note.handler
     description: GET /note/n/{note_id}
     events:
       - http:
@@ -96,12 +96,12 @@ functions:
             origin: '*'
             header: ${self:custom.allowedHeaders}
   delete-note:
-    handler: api/delete-note.handler
+    handler: api/delete_note.handler
     description: DELETE /note
     events:
       - http:
           path: note/t/{timestamp}
-          method: post
+          method: delete
           cors:
             origin: '*'
             header: ${self:custom.allowedHeaders}
@@ -129,7 +129,7 @@ resources:
           ReadCapacityUnits: 1
           WriteCapacityUnits: 1
         GlobalSecondaryIndexes:
-          - IndexName: node_id-index
+          - IndexName: note_id-index
             KeySchema:
               - AttributeName: note_id
                 KeyType: HASH

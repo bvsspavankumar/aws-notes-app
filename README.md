@@ -17,3 +17,6 @@ sls deploy
 
 ## CI/CD pipeline with codecommit
 Credentials should be generated from the IAM console if ssh key was not saved for access.
+
+## Setup codepipeline
+Add buildspec.yml with the different stages and corresponding commands
